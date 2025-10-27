@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
-from app.services import process_bingo_image
+from app.services.ocr.ocr_pipeline import process_bingo_image
 
 router = APIRouter()
 

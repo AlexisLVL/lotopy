@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.routers import ocr_routes, healthcheck
-
+import os
 app = FastAPI(title="Bingo OCR API")
 
 app.add_middleware(
@@ -18,3 +19,7 @@ app.include_router(healthcheck.router, prefix="/api", tags=["Healthcheck"])
 @app.get("/")
 def root():
     return {"message": "Bienvenue sur l’API Bingo OCR 🎯"}
+
+# Servir les fichiers de debug
+if os.path.exists("detected_cartons"):
+    app.mount("/detected_cartons", StaticFiles(directory="detected_cartons"), name="detected_cartons")
